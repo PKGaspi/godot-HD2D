@@ -1,22 +1,33 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/sprites/megaman/running_0.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/megaman/running_1.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/megaman/running_2.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/megaman/iddle_0.png" type="Texture" id=4]
 [ext_resource path="res://Player.gd" type="Script" id=5]
+[ext_resource path="res://StateMachine.gd" type="Script" id=6]
+[ext_resource path="res://Move.gd" type="Script" id=7]
+[ext_resource path="res://Air.gd" type="Script" id=8]
+[ext_resource path="res://Iddle.gd" type="Script" id=9]
+[ext_resource path="res://Run.gd" type="Script" id=10]
+[ext_resource path="res://assets/sprites/megaman/jump_0.png" type="Texture" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 11 ) ],
 "loop": true,
-"name": "running",
-"speed": 7.0
+"name": "jump",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "iddle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
 } ]
 
 [sub_resource type="BoxShape" id=2]
@@ -38,3 +49,19 @@ shape = SubResource( 2 )
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1, 2 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 6 )
+initial_state = NodePath("Move/Iddle")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
+
+[node name="Air" type="Node" parent="StateMachine/Move"]
+script = ExtResource( 8 )
+
+[node name="Iddle" type="Node" parent="StateMachine/Move"]
+script = ExtResource( 9 )
+
+[node name="Run" type="Node" parent="StateMachine/Move"]
+script = ExtResource( 10 )
