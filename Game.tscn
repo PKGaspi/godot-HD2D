@@ -60,15 +60,18 @@ environment = SubResource( 4 )
 
 [node name="Camera" type="InterpolatedCamera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1, 2 )
-target = NodePath("../Player")
+target = NodePath("../Player/Position3D")
+speed = 2.0
+enabled = true
 
 [node name="RigidBody" type="RigidBody" parent="."]
 transform = Transform( 0.985122, 0.125415, -0.117497, -0.144225, 0.975113, -0.168385, 0.0934544, 0.182826, 0.978694, -0.529886, 0.642598, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 5 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
 shape = SubResource( 6 )
+
+[editable path="Player"]
