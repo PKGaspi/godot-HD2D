@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://StateMachine.gd"
+} ]
 _global_script_class_icons={
-
+"State": "",
+"StateMachine": ""
 }
 
 [application]
@@ -18,10 +29,6 @@ _global_script_class_icons={
 config/name="OctoP"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
-
-[display]
-
-window/size/fullscreen=true
 
 [importer_defaults]
 

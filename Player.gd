@@ -27,5 +27,3 @@ func _process(delta: float) -> void:
 		
 	
 	move_and_slide(input_dir * move_speed)
-	
-	pass
