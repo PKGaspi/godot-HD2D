@@ -4,13 +4,19 @@
 [ext_resource path="res://assets/sprites/megaman/running_1.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/megaman/running_2.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/megaman/iddle_0.png" type="Texture" id=4]
-[ext_resource path="res://Player.gd" type="Script" id=5]
-[ext_resource path="res://StateMachine.gd" type="Script" id=6]
-[ext_resource path="res://Move.gd" type="Script" id=7]
-[ext_resource path="res://Air.gd" type="Script" id=8]
-[ext_resource path="res://Iddle.gd" type="Script" id=9]
-[ext_resource path="res://Run.gd" type="Script" id=10]
+[ext_resource path="res://src/character/Player.gd" type="Script" id=5]
+[ext_resource path="res://src/lib/StateMachine.gd" type="Script" id=6]
+[ext_resource path="res://src/character/states/Move.gd" type="Script" id=7]
+[ext_resource path="res://src/character/states/Air.gd" type="Script" id=8]
+[ext_resource path="res://src/character/states/Iddle.gd" type="Script" id=9]
+[ext_resource path="res://src/character/states/Run.gd" type="Script" id=10]
 [ext_resource path="res://assets/sprites/megaman/jump_0.png" type="Texture" id=11]
+
+
+
+
+
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

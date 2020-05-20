@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Playground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Game.gd" type="Script" id=3]
+[ext_resource path="res://src/character/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Playground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Game.gd" type="Script" id=3]
+[ext_resource path="res://src/lib/day_cycle/DayCycle.tscn" type="PackedScene" id=4]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 100, 100 )
@@ -11,26 +12,10 @@ size = Vector2( 100, 100 )
 margin = 0.001
 extents = Vector3( 50, 1, 50 )
 
-[sub_resource type="ProceduralSky" id=3]
-sky_top_color = Color( 0.380392, 0.243137, 0.596078, 1 )
-sky_horizon_color = Color( 0.956863, 0.662745, 0.537255, 1 )
-sky_curve = 0.156698
-ground_bottom_color = Color( 0.406215, 0.3417, 0.51, 1 )
-ground_horizon_color = Color( 0.65, 0.50895, 0.4485, 1 )
-sun_color = Color( 0.984314, 0.968627, 0.74902, 1 )
-sun_latitude = 10.0
-sun_energy = 2.0
-
-[sub_resource type="Environment" id=4]
-background_mode = 2
-background_sky = SubResource( 3 )
-glow_enabled = true
-adjustment_enabled = true
-
-[sub_resource type="CubeMesh" id=5]
+[sub_resource type="CubeMesh" id=3]
 size = Vector3( 0.1, 0.1, 0.1 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.05, 0.05, 0.05 )
 
 [node name="Game" type="Node"]
@@ -52,20 +37,6 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 shape = SubResource( 2 )
 
-[node name="SunLight" type="DirectionalLight" parent="."]
-transform = Transform( -1, 5.65818e-08, -3.20891e-07, 0, 0.984808, 0.173648, 3.25841e-07, 0.173648, -0.984808, 0, 0, 0 )
-light_energy = 0.8
-shadow_enabled = true
-shadow_bias = 0.0
-shadow_reverse_cull_face = true
-directional_shadow_blend_splits = true
-directional_shadow_normal_bias = 0.0
-directional_shadow_bias_split_scale = 0.75
-directional_shadow_max_distance = 8.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 4 )
-
 [node name="Camera" type="InterpolatedCamera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1, 2 )
 target = NodePath("../Player/Position3D")
@@ -76,13 +47,17 @@ enabled = true
 transform = Transform( 0.985122, 0.125415, -0.117497, -0.144225, 0.975113, -0.168385, 0.0934544, 0.182826, 0.978694, -0.529886, 0.642598, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
-mesh = SubResource( 5 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="Playground" parent="." instance=ExtResource( 2 )]
 transform = Transform( -0.94506, -0.183013, -0.270866, -0.224144, 0.965926, 0.12941, 0.237953, 0.183013, -0.953879, 3, 0, 0 )
 
+[node name="DayCycle" parent="." instance=ExtResource( 4 )]
+
 [editable path="Player"]
+
+[editable path="DayCycle"]

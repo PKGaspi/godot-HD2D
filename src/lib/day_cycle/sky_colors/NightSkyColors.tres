@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/lib/day_cycle/sky_colors/SkyColors.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+sky_top_color = Color( 0.0745098, 0.0941176, 0.384314, 1 )
+sky_horizon_color = Color( 0.745098, 0.662745, 0.870588, 1 )
+ground_bottom_color = Color( 0.0902, 0.0988533, 0.22, 1 )
+ground_horizon_color = Color( 0.4014, 0.369, 0.45, 1 )
+sun_color = Color( 0.984314, 0.968627, 0.74902, 1 )
