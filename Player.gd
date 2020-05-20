@@ -3,7 +3,7 @@ extends KinematicBody
 
 onready var spr_body = $SprBody
 
-var move_speed: float = 1 # Pixels per second.
+var move_speed: float = 1.5 # Pixels per second.
 
 func _ready() -> void:
 	pass # Replace with function body.
