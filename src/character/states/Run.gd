@@ -17,10 +17,12 @@ func input(event: InputEvent) -> void:
 func physics_process(delta: float) -> void:
 	_parent.physics_process(delta)
 	
-	spr.flip_h = _parent.velocity.x > 0
+	var velocity = _parent.velocity
+	if abs(velocity.x) > .01:
+		spr.flip_h = _parent.velocity.x > .01
 	
 	if character.is_on_floor() or character.is_on_wall():
-		if _parent.velocity.length() < .01:
+		if _parent.velocity.length() < .1:
 			_state_machine.transition_to("Move/Iddle")
 	else:
 		_state_machine.transition_to("Move/Air")

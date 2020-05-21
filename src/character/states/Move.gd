@@ -7,10 +7,13 @@ var gravity := Vector3(0, -9.8, 0)
 var jump_impulse := Vector3(0, 4, 0)
 
 var velocity := Vector3.ZERO
+var snap := Vector3(0,-.01,0)
+
 
 
 func input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
+		if velocity.y < 1: velocity.y = 0 # Avoid extra momentum on slopes.
 		_state_machine.transition_to("Move/Air", {velocity = velocity, jump_impulse = jump_impulse})
 
 
@@ -22,7 +25,7 @@ func physics_process(delta: float) -> void:
 	
 	
 	velocity = calculate_velocity(input_dir, delta)
-	velocity = character.move_and_slide(velocity, Vector3.UP, true)
+	character.move_and_slide_with_snap(velocity, snap, Vector3.UP, true)
 
 
 static func get_input_dir() -> Vector3:
@@ -40,5 +43,4 @@ static func get_input_dir() -> Vector3:
 func calculate_velocity(movement_dir: Vector3, delta: float) -> Vector3:
 	var new_velocity = movement_dir * move_speed
 	new_velocity.y = velocity.y
-	new_velocity += gravity * delta
 	return new_velocity
