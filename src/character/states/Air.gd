@@ -1,21 +1,21 @@
 extends CharacterState
 
 
-var old_snap: Vector3
+var old_snap_length: float
 
 func enter(msg: Dictionary = {}) -> void:
 	match msg:
 		{"velocity": var v, "jump_impulse": var ji}:
 			_parent.velocity = v + ji
 	spr.animation = "jump"
-	old_snap = _parent.snap
-	_parent.snap = Vector3.ZERO
+	old_snap_length = _parent.snap_length
+	_parent.snap_length = 0
 	_parent.enter()
 
 
 func exit() -> void:
 	_parent.velocity.y = 0
-	_parent.snap = old_snap
+	_parent.snap_length = old_snap_length
 	_parent.exit()
 
 

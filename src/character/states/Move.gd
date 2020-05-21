@@ -7,7 +7,7 @@ var gravity := Vector3(0, -9.8, 0)
 var jump_impulse := Vector3(0, 4, 0)
 
 var velocity := Vector3.ZERO
-var snap := Vector3(0,-.01,0)
+var snap_length: float = 5
 
 
 
@@ -25,7 +25,10 @@ func physics_process(delta: float) -> void:
 	
 	
 	velocity = calculate_velocity(input_dir, delta)
+	var snap = - character.get_floor_normal().normalized() * snap_length
 	character.move_and_slide_with_snap(velocity, snap, Vector3.UP, true)
+	
+	
 
 
 static func get_input_dir() -> Vector3:
