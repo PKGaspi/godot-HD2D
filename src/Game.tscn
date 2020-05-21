@@ -22,7 +22,7 @@ extents = Vector3( 0.05, 0.05, 0.05 )
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.173275, 0 )
 collision_layer = 2
 
 [node name="TestMap" type="MeshInstance" parent="."]
@@ -64,7 +64,7 @@ length = 180.0
 paused = false
 
 [node name="SunLight" parent="DayCycle/WorldEnvironment" index="0"]
-transform = Transform( -1, -2.62202e-08, 1.48702e-07, 0, 0.984808, 0.173648, -1.50996e-07, 0.173648, -0.984808, 0, 0, 0 )
+transform = Transform( -1, -2.62201e-08, 1.48702e-07, 0, 0.984808, 0.173648, -1.50996e-07, 0.173648, -0.984808, 0, 0, 0 )
 
 [editable path="Player"]
 

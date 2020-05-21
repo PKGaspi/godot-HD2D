@@ -18,7 +18,8 @@ func physics_process(delta: float) -> void:
 	_parent.physics_process(delta)
 	
 	
-	if character.is_on_floor() and _parent.velocity.length() > .01:
-		_state_machine.transition_to("Move/Run")
-	elif not character.is_on_floor() and not character.is_on_wall():
+	if character.is_on_floor():
+		if _parent.velocity.length() > .01:
+			_state_machine.transition_to("Move/Run")
+	else:
 		_state_machine.transition_to("Move/Air")

@@ -20,9 +20,9 @@ func exit() -> void:
 
 
 func physics_process(delta: float) -> void:
+	_parent.velocity += _parent.gravity * delta
 	_parent.physics_process(delta)
 	
-	_parent.velocity += _parent.gravity * delta
 	
 	if character.is_on_floor():
 		_state_machine.transition_to("Move/Iddle")
