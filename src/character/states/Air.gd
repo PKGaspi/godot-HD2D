@@ -1,6 +1,5 @@
 extends CharacterState
 
-
 var old_snap_length: float
 
 func enter(msg: Dictionary = {}) -> void:
@@ -17,6 +16,11 @@ func exit() -> void:
 	_parent.velocity.y = 0
 	_parent.snap_length = old_snap_length
 	_parent.exit()
+
+
+func input(event: InputEvent) -> void:
+	if event.is_action_released("jump"):
+		_parent.velocity.y = min(_parent.velocity.y / 3, _parent.velocity.y)
 
 
 func physics_process(delta: float) -> void:
