@@ -26,7 +26,7 @@ func physics_process(delta: float) -> void:
 	
 	velocity = calculate_velocity(input_dir, delta)
 	var snap := -character.get_floor_normal().normalized() * snap_length
-	character.move_and_slide_with_snap(velocity, snap, Vector3.UP, true)
+	velocity = character.move_and_slide_with_snap(velocity, snap, Vector3.UP, true)
 	
 
 
@@ -45,4 +45,5 @@ static func get_input_dir() -> Vector3:
 func calculate_velocity(movement_dir: Vector3, delta: float) -> Vector3:
 	var new_velocity = movement_dir * move_speed
 	new_velocity.y = velocity.y
+	new_velocity += gravity * delta
 	return new_velocity

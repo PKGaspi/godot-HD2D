@@ -20,7 +20,6 @@ func exit() -> void:
 
 
 func physics_process(delta: float) -> void:
-	_parent.velocity += _parent.gravity * delta
 	_parent.physics_process(delta)
 	
 	
