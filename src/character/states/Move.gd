@@ -13,7 +13,7 @@ var snap_length: float = 5
 
 func input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
-		if velocity.y < 1: velocity.y = 0 # Avoid extra momentum on slopes.
+		if abs(velocity.y) > 1: velocity.y = 0 # Avoid extra momentum on slopes.
 		_state_machine.transition_to("Move/Air", {velocity = velocity, jump_impulse = jump_impulse})
 
 
@@ -26,7 +26,11 @@ func physics_process(delta: float) -> void:
 	
 	velocity = calculate_velocity(input_dir, delta)
 	var snap := -character.get_floor_normal().normalized() * snap_length
+	print("-------")
+	print(character.translation)
+	print(velocity)
 	velocity = character.move_and_slide_with_snap(velocity, snap, Vector3.UP, true)
+	print(velocity)
 	
 
 
