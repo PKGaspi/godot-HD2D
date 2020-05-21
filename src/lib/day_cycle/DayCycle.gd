@@ -20,7 +20,8 @@ func _ready() -> void:
 
 
 func start_cycle() -> void:
-	tween.interpolate_property(sun_light, "rotation", Vector3(PI, PI, 0), Vector3(3 * PI, PI, 0), length, Tween.TRANS_LINEAR)
+	var longitude = PI - deg2rad(world_env.environment.background_sky.sun_longitude)
+	tween.interpolate_property(sun_light, "rotation", Vector3(PI, longitude, 0), Vector3(3 * PI, longitude, 0), length, Tween.TRANS_LINEAR)
 	tween.interpolate_property(world_env.environment.background_sky, "sun_latitude", 180.0, -180.0, length, Tween.TRANS_LINEAR)
 	var sum_splits = 0
 	for i in range(len(sky_colors)):
