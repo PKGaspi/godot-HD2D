@@ -4,6 +4,8 @@ var old_snap_length: float
 
 func enter(msg: Dictionary = {}) -> void:
 	match msg:
+		# warning-ignore:unassigned_variable
+		# warning-ignore:unassigned_variable
 		{"velocity": var v, "jump_impulse": var ji}:
 			_parent.velocity = v + ji
 	spr.animation = "jump"
