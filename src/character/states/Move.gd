@@ -26,11 +26,7 @@ func physics_process(delta: float) -> void:
 	
 	velocity = calculate_velocity(input_dir, delta)
 	var snap := -character.get_floor_normal().normalized() * snap_length
-	print("-------")
-	print(character.translation)
-	print(velocity)
 	velocity = character.move_and_slide_with_snap(velocity, snap, Vector3.UP, true)
-	print(velocity)
 	
 
 
