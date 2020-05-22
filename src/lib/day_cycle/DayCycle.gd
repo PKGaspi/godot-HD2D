@@ -6,9 +6,10 @@ const SUN_MIDNIGHT_LATITUDE: float = -105.0 # Latitude at 00:00.
 
 export var cycle_period: int = 20 # Duration of a cycle in seconds.
 export var current_time: int = 0 setget set_time # Current time of the day in seconds.
+var cycle_time: float = 0 setget _set_cycle_time
 export(Array, Resource) var sky_colors := []
 export(Array, int) var sky_color_times := []
-export var paused: bool = false setget set_paused
+export var paused: bool = false
 #TODO: Add longitude param.
 
 
@@ -16,35 +17,27 @@ export var paused: bool = false setget set_paused
 onready var world_env := $WorldEnvironment
 onready var background_sky: ProceduralSky = world_env.environment.background_sky
 onready var sun_light := $WorldEnvironment/SunLight
-onready var tween := $Tween
 
 
 func _ready() -> void:
 	assert(len(sky_colors) == len(sky_color_times))
-	#set_time(21 * 3600)
+
+
+func _physics_process(delta: float) -> void:
 	if not paused:
-		start_cycle(current_time)
+		_set_cycle_time(cycle_time + delta)
 
 
-func _on_tween_all_completed() -> void:
-	start_cycle(current_time)
-
-
-func start_cycle(time: int = 0) -> void:
-	tween.interpolate_property(self, "current_time", time, time + DAY_PERIOD, cycle_period, Tween.TRANS_LINEAR)
-	tween.connect("tween_all_completed", self, "_on_tween_all_completed")
-	tween.start()
-
-
-func stop_cycle() -> void:
-	tween.reset_all()
-	tween.disconnect("tween_all_completed", self, "_on_tween_all_completed")
-
+func _set_cycle_time(value: float) -> void:
+	value = fposmod(value, cycle_period)
+	cycle_time = value
+	set_time(range_lerp(value, 0, cycle_period, 0, DAY_PERIOD))
 
 # Sets the properties of the enviroment to match the specified time of the day.
 # day_time is the time of the day in seconds, between [0, DAY_PERIOD).
 func set_time(day_time: int) -> void:
 	current_time = day_time
+	cycle_time = range_lerp(day_time, 0, DAY_PERIOD, 0, cycle_period)
 	if not is_instance_valid(world_env):
 		call_deferred("set_time", day_time)
 		return
@@ -76,16 +69,4 @@ func set_time(day_time: int) -> void:
 	background_sky.ground_bottom_color = lerp(current_colors.ground_bottom_color, next_colors.ground_bottom_color, color_weight)
 	background_sky.ground_horizon_color = lerp(current_colors.ground_horizon_color, next_colors.ground_horizon_color, color_weight)
 	background_sky.sun_color = lerp(current_colors.sun_color, next_colors.sun_color, color_weight)
-
-
-func set_paused(value: bool) -> void:
-	if not is_instance_valid(tween):
-		call_deferred("set_paused", value)
-		return
-	
-	paused = value
-	if value:
-		tween.stop_all()
-	else:
-		tween.resume_all()
 

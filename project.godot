@@ -48,10 +48,6 @@ gdscript/warnings/shadowed_variable=false
 gdscript/warnings/unused_argument=false
 gdscript/warnings/return_value_discarded=false
 
-[display]
-
-window/size/fullscreen=true
-
 [importer_defaults]
 
 texture={
@@ -114,8 +110,6 @@ game_exit={
 
 [rendering]
 
-quality/directional_shadow/size=16384
-quality/shadow_atlas/size=16384
 quality/shadows/filter_mode=2
 quality/filters/use_nearest_mipmap_filter=true
 quality/subsurface_scattering/quality=2

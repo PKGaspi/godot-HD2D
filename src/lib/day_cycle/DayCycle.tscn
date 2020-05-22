@@ -25,7 +25,7 @@ glow_enabled = true
 [node name="DayCycle" type="Spatial"]
 script = ExtResource( 1 )
 cycle_period = 200
-current_time = 1000
+current_time = 25200
 sky_colors = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]
 sky_color_times = [ 21600, 25200, 28800, 64800, 68400, 72000 ]
 
@@ -42,5 +42,3 @@ shadow_reverse_cull_face = true
 directional_shadow_blend_splits = true
 directional_shadow_normal_bias = 0.0
 directional_shadow_bias_split_scale = 0.75
-
-[node name="Tween" type="Tween" parent="."]
