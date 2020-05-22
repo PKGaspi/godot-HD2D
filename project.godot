@@ -38,7 +38,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="OctoP"
+config/name="Tear"
 run/main_scene="res://src/Game.tscn"
 config/icon="res://icon.png"
 
