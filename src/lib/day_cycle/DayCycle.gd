@@ -7,6 +7,8 @@ const SUN_MIDNIGHT_LATITUDE: float = -105.0 # Latitude at 00:00.
 export var cycle_period: int = 20 # Duration of a cycle in seconds.
 export var current_time: int = 0 setget set_time # Current time of the day in seconds.
 var cycle_time: float = 0 setget _set_cycle_time
+export(float, -180, 180, 1) var sun_longitude := 0.0 setget set_sun_longitude
+
 export(Array, Resource) var sky_colors := []
 export(Array, int) var sky_color_times := []
 export var paused: bool = false
@@ -21,6 +23,7 @@ onready var sun_light := $WorldEnvironment/SunLight
 
 func _ready() -> void:
 	assert(len(sky_colors) == len(sky_color_times))
+	set_sun_longitude(sun_longitude)
 
 
 func _physics_process(delta: float) -> void:
@@ -44,10 +47,9 @@ func set_time(day_time: int) -> void:
 	# warning-ignore:narrowing_conversion
 	day_time = fposmod(day_time, DAY_PERIOD)
 	var weight := inverse_lerp(0, DAY_PERIOD, day_time)
-	var longitude = PI - deg2rad(world_env.environment.background_sky.sun_longitude)
 	# Interpolate parameters.
 	# Light rotation.
-	sun_light.rotation = lerp(Vector3(deg2rad(-SUN_MIDNIGHT_LATITUDE), longitude, 0), Vector3(deg2rad(-SUN_MIDNIGHT_LATITUDE) - 2*PI, longitude, 0), weight)
+	sun_light.rotation.x = lerp(deg2rad(-SUN_MIDNIGHT_LATITUDE), deg2rad(-SUN_MIDNIGHT_LATITUDE) - 2*PI, weight)
 	# Sun latitude.
 	var sun_latitude = -rad2deg(sun_light.rotation.x)
 	while sun_latitude > 180:
@@ -70,3 +72,13 @@ func set_time(day_time: int) -> void:
 	background_sky.ground_horizon_color = lerp(current_colors.ground_horizon_color, next_colors.ground_horizon_color, color_weight)
 	background_sky.sun_color = lerp(current_colors.sun_color, next_colors.sun_color, color_weight)
 
+
+func set_sun_longitude(value: float) -> void:
+	value = clamp(value, -180.0, 180.0)
+	sun_longitude = value
+	
+	if not is_instance_valid(background_sky):
+		return
+	
+	background_sky.sun_longitude = value
+	sun_light.rotation.y = PI - deg2rad(value)

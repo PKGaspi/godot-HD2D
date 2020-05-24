@@ -14,7 +14,6 @@ ground_bottom_color = Color( 0.407843, 0.341176, 0.509804, 1 )
 ground_horizon_color = Color( 0.65, 0.50895, 0.4485, 1 )
 sun_color = Color( 0.984314, 0.968627, 0.74902, 1 )
 sun_latitude = 10.0
-sun_longitude = 30.0
 sun_energy = 2.0
 
 [sub_resource type="Environment" id=2]
@@ -26,6 +25,7 @@ glow_enabled = true
 script = ExtResource( 1 )
 cycle_period = 200
 current_time = 25200
+sun_longitude = -20.0
 sky_colors = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]
 sky_color_times = [ 21600, 25200, 28800, 64800, 68400, 72000 ]
 
