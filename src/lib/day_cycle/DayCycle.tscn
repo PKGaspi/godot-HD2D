@@ -23,7 +23,6 @@ glow_enabled = true
 
 [node name="DayCycle" type="Spatial"]
 script = ExtResource( 1 )
-cycle_period = 200
 current_time = 25200
 sun_longitude = -20.0
 sky_colors = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]

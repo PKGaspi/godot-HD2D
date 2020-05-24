@@ -66,6 +66,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.43211, 0.0119411, 1.68545 )
 transform = Transform( -0.870034, -0.253839, -0.422618, -0.28008, 0.959977, 0, 0.405704, 0.118367, -0.906308, 3.9383, -0.228503, 0.354979 )
 
 [node name="DayCycle" parent="." instance=ExtResource( 4 )]
+cycle_period = 20
 
 [editable path="Player"]
 

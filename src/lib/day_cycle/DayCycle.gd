@@ -1,6 +1,10 @@
 extends Spatial
 
-const DAY_PERIOD := 24 * 3600 # Duration of a real life day in seconds.
+const SECS_IN_A_MIN := 60
+const MINS_IN_AN_HOUR := 60
+const SECS_IN_AN_HOUR := MINS_IN_AN_HOUR * SECS_IN_A_MIN
+const HOURS_IN_A_DAY := 24
+const DAY_PERIOD := HOURS_IN_A_DAY * SECS_IN_AN_HOUR # Duration of a day in seconds.
 const SUN_MIDNIGHT_LATITUDE: float = -105.0 # Latitude at 00:00.
 
 
@@ -12,7 +16,6 @@ export(float, -180, 180, 1) var sun_longitude := 0.0 setget set_sun_longitude
 export(Array, Resource) var sky_colors := []
 export(Array, int) var sky_color_times := []
 export var paused: bool = false
-#TODO: Add longitude param.
 
 
 
@@ -34,7 +37,7 @@ func _physics_process(delta: float) -> void:
 func _set_cycle_time(value: float) -> void:
 	value = fposmod(value, cycle_period)
 	cycle_time = value
-	set_time(range_lerp(value, 0, cycle_period, 0, DAY_PERIOD))
+	set_time(int(range_lerp(value, 0, cycle_period, 0, DAY_PERIOD)))
 
 
 # Sets the properties of the enviroment to match the specified time of the day.
@@ -89,17 +92,19 @@ func set_sun_longitude(value: float) -> void:
 # Useful getters and setters.
 
 func set_time_hhmmss(hours: int, mins: int, secs: int) -> void:
-	set_time(hours * 3600 + mins * 60 + secs)
+	set_time(hours * SECS_IN_AN_HOUR + mins * SECS_IN_A_MIN + secs)
 
 
 func get_hours() -> int:
-	return int(floor(current_time / 3600))
+# warning-ignore:integer_division
+	return int(floor(current_time / SECS_IN_AN_HOUR))
 
 func get_mins() -> int:
-	return int(floor((current_time - get_hours() * 3600) / 60))
+# warning-ignore:integer_division
+	return int(floor((current_time - get_hours() * SECS_IN_AN_HOUR) / SECS_IN_A_MIN))
 
 func get_secs() -> int:
-	return int(floor(current_time - get_hours() * 3600 - get_mins() * 60))
+	return int(floor(current_time - get_hours() * SECS_IN_AN_HOUR - get_mins() * SECS_IN_A_MIN))
 
 
 func get_time_to_string() -> String:
