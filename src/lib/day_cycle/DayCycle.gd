@@ -1,6 +1,6 @@
 extends Spatial
 
-const DAY_PERIOD := 24 * 60 * 60 # Duration of a real life day in seconds.
+const DAY_PERIOD := 24 * 3600 # Duration of a real life day in seconds.
 const SUN_MIDNIGHT_LATITUDE: float = -105.0 # Latitude at 00:00.
 
 
@@ -36,13 +36,14 @@ func _set_cycle_time(value: float) -> void:
 	cycle_time = value
 	set_time(range_lerp(value, 0, cycle_period, 0, DAY_PERIOD))
 
+
 # Sets the properties of the enviroment to match the specified time of the day.
 # day_time is the time of the day in seconds, between [0, DAY_PERIOD).
 func set_time(day_time: int) -> void:
 	current_time = day_time
 	cycle_time = range_lerp(day_time, 0, DAY_PERIOD, 0, cycle_period)
 	if not is_instance_valid(world_env):
-		call_deferred("set_time", day_time)
+		# Return if there is no child.
 		return
 	# warning-ignore:narrowing_conversion
 	day_time = fposmod(day_time, DAY_PERIOD)
@@ -78,7 +79,28 @@ func set_sun_longitude(value: float) -> void:
 	sun_longitude = value
 	
 	if not is_instance_valid(background_sky):
+		# Return if there is no child.
 		return
 	
 	background_sky.sun_longitude = value
 	sun_light.rotation.y = PI - deg2rad(value)
+
+
+# Useful getters and setters.
+
+func set_time_hhmmss(hours: int, mins: int, secs: int) -> void:
+	set_time(hours * 3600 + mins * 60 + secs)
+
+
+func get_hours() -> int:
+	return int(floor(current_time / 3600))
+
+func get_mins() -> int:
+	return int(floor((current_time - get_hours() * 3600) / 60))
+
+func get_secs() -> int:
+	return int(floor(current_time - get_hours() * 3600 - get_mins() * 60))
+
+
+func get_time_to_string() -> String:
+	return str(get_hours()) + ":" + str(get_mins()) + ":" + str(get_secs())
